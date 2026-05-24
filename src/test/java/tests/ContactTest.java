@@ -18,28 +18,29 @@ public class ContactTest extends BaseTest {
     public void checkAddNewContact() {
         String suffix = String.valueOf(System.currentTimeMillis()).substring(7);
 
-        Contact contact = new Contact();
-        contact.setSalutation("Mr.");
-        contact.setFirstName("QA");
-        contact.setLastName("Contact " + suffix);
-        contact.setOfficePhone("8911000" + suffix);
-        contact.setMobile("8912000" + suffix);
-        contact.setJobTitle("QA Engineer " + suffix);
-        contact.setDepartment("Quality Assurance");
-        contact.setFax("8495111" + suffix);
-        contact.setEmail("qa.contact." + suffix + "@example.com");
-        contact.setPrimaryStreet("Primary street " + suffix);
-        contact.setPrimaryCity("Primary city");
-        contact.setPrimaryState("Primary state");
-        contact.setPrimaryPostalCode("300" + suffix);
-        contact.setPrimaryCountry("Primary country");
-        contact.setOtherStreet("Other street " + suffix);
-        contact.setOtherCity("Other city");
-        contact.setOtherState("Other state");
-        contact.setOtherPostalCode("400" + suffix);
-        contact.setOtherCountry("Other country");
-        contact.setDescription("Contact description " + suffix);
-        contact.setLeadSource("Web Site");
+        Contact contact = Contact.builder()
+                .salutation("Mr.")
+                .firstName("QA")
+                .lastName("Contact " + suffix)
+                .officePhone("+7911000" + suffix)
+                .mobile("+7912000" + suffix)
+                .jobTitle("QA Engineer " + suffix)
+                .department("Quality Assurance")
+                .fax("8495111" + suffix)
+                .email("qa.contact." + suffix + "@example.com")
+                .primaryStreet("Primary street " + suffix)
+                .primaryCity("Primary city")
+                .primaryState("Primary state")
+                .primaryPostalCode("300" + suffix)
+                .primaryCountry("Primary country")
+                .otherStreet("Other street " + suffix)
+                .otherCity("Other city")
+                .otherState("Other state")
+                .otherPostalCode("400" + suffix)
+                .otherCountry("Other country")
+                .description("Contact description " + suffix)
+                .leadSource("Web Site")
+                .build();
 
         ContactPage contactPage = new LoginPage(driver)
                 .open()
