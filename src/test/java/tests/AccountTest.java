@@ -1,14 +1,16 @@
 package tests;
 
 import dto.Account;
+import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.AccountPage;
-import pages.LoginPage;
+import pages.MainPage;
 
 /**
  * Тест создания Account и проверки заполненных полей.
  */
+@Log4j2
 public class AccountTest extends BaseTest {
 
     /**
@@ -42,12 +44,8 @@ public class AccountTest extends BaseTest {
                 .employees("15")
                 .build();
 
-        AccountPage accountPage = new LoginPage(driver)
-                .open()
-                .loginAs("will", "will")
-                .openAddAccountPage()
-                .fillAccount(account)
-                .save();
+        MainPage mainPage = loginStep.login("will", "will");
+        AccountPage accountPage = accountStep.createAccount(mainPage, account);
 
         SoftAssert softAssert = new SoftAssert();
         String actualTitle = accountPage.getTitle();

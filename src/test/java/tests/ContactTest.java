@@ -1,14 +1,16 @@
 package tests;
 
 import dto.Contact;
+import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.ContactPage;
-import pages.LoginPage;
+import pages.MainPage;
 
 /**
  * Тест создания Contact и проверки заполненных полей.
  */
+@Log4j2
 public class ContactTest extends BaseTest {
 
     /**
@@ -42,12 +44,8 @@ public class ContactTest extends BaseTest {
                 .leadSource("Web Site")
                 .build();
 
-        ContactPage contactPage = new LoginPage(driver)
-                .open()
-                .loginAs("will", "will")
-                .openAddContactPage()
-                .fillContact(contact)
-                .save();
+        MainPage mainPage = loginStep.login("will", "will");
+        ContactPage contactPage = contactStep.createContact(mainPage, contact);
 
         SoftAssert softAssert = new SoftAssert();
         String actualTitle = contactPage.getTitle();

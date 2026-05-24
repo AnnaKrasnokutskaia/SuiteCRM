@@ -2,6 +2,7 @@ package tests;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.testng.AllureTestNg;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,6 +11,9 @@ import org.testng.ITestContext;
 import org.testng.annotations.*;
 
 import utils.TestListener;
+import step.AccountStep;
+import step.ContactStep;
+import step.LoginStep;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -21,6 +25,9 @@ import java.util.HashMap;
 @Listeners({AllureTestNg.class, TestListener.class})
 public class BaseTest {
     protected WebDriver driver;
+    protected LoginStep loginStep;
+    protected AccountStep accountStep;
+    protected ContactStep contactStep;
 
     /**
      * Перед каждым тестом создаёт браузер.
@@ -51,6 +58,10 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         iTestContext.setAttribute("driver", driver);
+
+        loginStep = new LoginStep(driver);
+        accountStep = new AccountStep();
+        contactStep = new ContactStep();
     }
 
     /**
