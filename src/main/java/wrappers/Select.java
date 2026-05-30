@@ -1,5 +1,6 @@
 package wrappers;
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,7 @@ import java.time.Duration;
  * Wrapper для выпадающего списка select.
  * Select ищется по видимому label строки формы.
  */
+@Log4j2
 public class Select {
 
     private final WebDriverWait wait;
@@ -29,6 +31,7 @@ public class Select {
      * Выбирает option по видимому тексту.
      */
     public void select(String option) {
+        log.info("Choosing '{}' in select '{}'", option, label);
         WebElement select = wait.until(ExpectedConditions.elementToBeClickable(selectByLabel()));
         new org.openqa.selenium.support.ui.Select(select).selectByVisibleText(option);
     }

@@ -1,6 +1,7 @@
 package pages;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import wrappers.AddressField;
@@ -15,6 +16,7 @@ import wrappers.Textarea;
  * Page Object формы создания Account.
  * Методы страницы заполняют поля формы через wrappers по видимым label.
  */
+@Log4j2
 public class AddAccountPage extends BasePage {
 
     /**
@@ -41,6 +43,7 @@ public class AddAccountPage extends BasePage {
      */
     @Step("Заполнить форму Account")
     public AddAccountPage fillAccount(Account account) {
+        log.info("Filling account form with account'{}'", account);
         return fillName(account.getName())
                 .fillOfficePhone(account.getOfficePhone())
                 .fillWebsite(account.getWebsite())

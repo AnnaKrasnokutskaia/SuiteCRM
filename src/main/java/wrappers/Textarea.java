@@ -1,5 +1,6 @@
 package wrappers;
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,7 @@ import java.time.Duration;
  * Wrapper для textarea.
  * Textarea ищется по видимому label строки формы.
  */
+@Log4j2
 public class Textarea {
 
     private final WebDriverWait wait;
@@ -29,6 +31,7 @@ public class Textarea {
      * Находит textarea, очищает её и вводит текст.
      */
     public void write(String text) {
+        log.info("Writing '{}' in to textarea '{}'", text, label);
         WebElement textarea = wait.until(ExpectedConditions.elementToBeClickable(textareaByLabel()));
         textarea.clear();
         textarea.sendKeys(text);

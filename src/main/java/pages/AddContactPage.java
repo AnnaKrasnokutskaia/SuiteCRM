@@ -1,6 +1,7 @@
 package pages;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import wrappers.AddressField;
@@ -15,6 +16,7 @@ import wrappers.Textarea;
  * Page Object формы создания Contact.
  * Методы страницы заполняют поля формы через wrappers по видимым label.
  */
+@Log4j2
 public class AddContactPage extends BasePage {
 
     /**
@@ -41,6 +43,7 @@ public class AddContactPage extends BasePage {
      */
     @Step("Заполнить форму Contact")
     public AddContactPage fillContact(Contact contact) {
+        log.info("Filling contact form with contact '{}'", contact);
         return selectSalutation(contact.getSalutation())
                 .fillFirstName(contact.getFirstName())
                 .fillLastName(contact.getLastName())
