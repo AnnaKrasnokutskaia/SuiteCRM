@@ -1,14 +1,16 @@
 package tests;
 
 import dto.Account;
+import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.AccountPage;
-import pages.LoginPage;
+import pages.MainPage;
 
 /**
  * Тест создания Account и проверки заполненных полей.
  */
+@Log4j2
 public class AccountTest extends BaseTest {
 
     /**
@@ -19,34 +21,31 @@ public class AccountTest extends BaseTest {
         //мне лень подключать фейкер
         String suffix = String.valueOf(System.currentTimeMillis()).substring(7);
 
-        Account account = new Account();
-        account.setName("QA Account " + suffix);
-        account.setOfficePhone("+7909000" + suffix);
-        account.setWebsite("https://qa-account-" + suffix + ".example.com");
-        account.setFax("+7495000" + suffix);
-        account.setEmail("qa.account." + suffix + "@example.com");
-        account.setBillingStreet("Billing street " + suffix);
-        account.setBillingCity("Billing city");
-        account.setBillingState("Billing state");
-        account.setBillingPostalCode("100" + suffix);
-        account.setBillingCountry("Billing country");
-        account.setShippingStreet("Shipping street " + suffix);
-        account.setShippingCity("Shipping city");
-        account.setShippingState("Shipping state");
-        account.setShippingPostalCode("200" + suffix);
-        account.setShippingCountry("Shipping country");
-        account.setDescription("Account description " + suffix);
-        account.setType("Customer");
-        account.setIndustry("Technology");
-        account.setAnnualRevenue("100000");
-        account.setEmployees("15");
+        Account account = Account.builder()
+                .name("QA Account " + suffix)
+                .officePhone("+7909000" + suffix)
+                .website("https://qa-account-" + suffix + ".example.com")
+                .fax("+7495000" + suffix)
+                .email("qa.account." + suffix + "@example.com")
+                .billingStreet("Billing street " + suffix)
+                .billingCity("Billing city")
+                .billingState("Billing state")
+                .billingPostalCode("100" + suffix)
+                .billingCountry("Billing country")
+                .shippingStreet("Shipping street " + suffix)
+                .shippingCity("Shipping city")
+                .shippingState("Shipping state")
+                .shippingPostalCode("200" + suffix)
+                .shippingCountry("Shipping country")
+                .description("Account description " + suffix)
+                .type("Customer")
+                .industry("Technology")
+                .annualRevenue("100000")
+                .employees("15")
+                .build();
 
-        AccountPage accountPage = new LoginPage(driver)
-                .open()
-                .loginAs("will", "will")
-                .openAddAccountPage()
-                .fillAccount(account)
-                .save();
+        MainPage mainPage = loginStep.login("will", "will");
+        AccountPage accountPage = accountStep.createAccount(mainPage, account);
 
         SoftAssert softAssert = new SoftAssert();
         String actualTitle = accountPage.getTitle();

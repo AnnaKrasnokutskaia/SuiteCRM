@@ -1,5 +1,6 @@
 package wrappers;
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,6 +14,7 @@ import java.time.Duration;
  * Нужен, потому что внутри адреса есть несколько полей с одинаковыми названиями:
  * Street, City, State/Region, Postal Code, Country.
  */
+@Log4j2
 public class AddressField {
 
     private final WebDriverWait wait;
@@ -31,6 +33,7 @@ public class AddressField {
      * Например, внутри Billing Address можно заполнить Street или City.
      */
     public void write(String fieldLabel, String text) {
+        log.info("Writing '{}' in to '{}' field in '{}'", text, fieldLabel, addressBlockLabel);
         WebElement field = wait.until(ExpectedConditions.elementToBeClickable(fieldByLabels(fieldLabel)));
         field.clear();
         field.sendKeys(text);

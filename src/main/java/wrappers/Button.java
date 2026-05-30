@@ -1,5 +1,6 @@
 package wrappers;
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +14,7 @@ import java.time.Duration;
  * Wrapper для кнопки.
  * Кнопка ищется по видимому тексту, value или title.
  */
+@Log4j2
 public class Button {
 
     private final WebDriver driver;
@@ -33,6 +35,7 @@ public class Button {
      * Берём нижнюю кнопку Save, потому что верхнюю может перекрыть фиксированное меню.
      */
     public void click() {
+        log.info("Click button '{}'", text);
         WebElement button = wait.until(ExpectedConditions.presenceOfElementLocated(buttonByText()));
         scrollToCenter(button);
         wait.until(ExpectedConditions.elementToBeClickable(button)).click();

@@ -1,5 +1,6 @@
 package wrappers;
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,7 @@ import java.time.Duration;
  * Wrapper для обычного текстового input.
  * Поле ищется по видимому названию label на странице.
  */
+@Log4j2
 public class Input {
 
     private final WebDriverWait wait;
@@ -29,6 +31,7 @@ public class Input {
      * Находит input, очищает его и вводит текст.
      */
     public void write(String text) {
+        log.info("Writing '{}' in to input '{}'", text, label);
         WebElement input = wait.until(ExpectedConditions.elementToBeClickable(inputByLabel()));
         input.clear();
         input.sendKeys(text);

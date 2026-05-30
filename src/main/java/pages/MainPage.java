@@ -1,6 +1,7 @@
 package pages;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -8,6 +9,7 @@ import org.openqa.selenium.WebDriver;
  * Page Object главной страницы после успешного логина.
  * Сейчас используется как точка, из которой открываются формы создания сущностей.
  */
+@Log4j2
 public class MainPage extends BasePage {
 
     /**
@@ -32,6 +34,7 @@ public class MainPage extends BasePage {
      */
     @Step("Открыть форму создания Account")
     public AddAccountPage openAddAccountPage() {
+        log.info("Open account form");
         driver.get(BASE_URL + "/index.php?module=Accounts&action=EditView&return_module=Accounts&return_action=DetailView");
         return new AddAccountPage(driver).waitForPageOpened();
     }
@@ -42,6 +45,7 @@ public class MainPage extends BasePage {
      */
     @Step("Открыть форму создания Contact")
     public AddContactPage openAddContactPage() {
+        log.info("Open contact form");
         driver.get(BASE_URL + "/index.php?module=Contacts&action=EditView&return_module=Contacts&return_action=DetailView");
         return new AddContactPage(driver).waitForPageOpened();
     }

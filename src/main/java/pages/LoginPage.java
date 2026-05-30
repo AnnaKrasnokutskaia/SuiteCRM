@@ -1,12 +1,14 @@
 package pages;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 /**
  * Page Object страницы логина SuiteCRM.
  */
+@Log4j2
 public class LoginPage extends BasePage {
 
     private final By userNameInput = By.id("user_name");
@@ -43,6 +45,7 @@ public class LoginPage extends BasePage {
      */
     @Step("Авторизоваться пользователем {username}")
     public MainPage loginAs(String username, String password) {
+        log.info("Login with credentials '{}', '{}'", username, password);
         waitForVisible(userNameInput).clear();
         waitForVisible(userNameInput).sendKeys(username);
         waitForVisible(passwordInput).clear();
